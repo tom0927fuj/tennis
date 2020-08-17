@@ -2,6 +2,10 @@
 #-*- coding: utf -8  -*-
 import MySQLdb
 import cgi
+import servetiebreak
+import returntiebreak
+import servepointcheck
+
 connection = MySQLdb.connect(
     host='localhost',
     user='root',
@@ -23,25 +27,19 @@ if Force==1:
     cursor.execute("""INSERT INTO forcedornot(forced) VALUES (1)""")
     connection.commit()
     if  Tiecheck==1:
-        import servetiebreak
         servetiebreak.py
     elif Tiecheck==2:
-        import returntiebreak
-        returntiebreak.py   
+        returntiebreak.py
     else:
-        import servepointcheck
-        servepointcheck.py         
+        servepointcheck.py
 elif Force==2:
     cursor.execute("""INSERT INTO forcedornot(unforced) VALUES (2)""")
     connection.commit()
     if Tiecheck==0:
-        import servepointcheck
         servepointcheck.py
     elif Tiecheck==1:
-        import servetiebreak
         servetiebreak.py
     elif Tiecheck==2:
-        import returntiebreak
         returntiebreak.py
 else:
     print("前に戻ってください")

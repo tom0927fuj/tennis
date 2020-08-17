@@ -3,6 +3,7 @@
 print("Content-Type: text/html\n")
 import MySQLdb
 import cgi
+import servepointcheck
 connection = MySQLdb.connect(
 host='localhost',
 user='root',
@@ -32,7 +33,7 @@ def delete():
         connection.commit()
     if form.getfirst('doublefault'):
         cursor.execute("DELETE FROM serve WHERE doublefault LIMIT 1")
-        connection.commit()                    
+        connection.commit()
     if form.getfirst('1stservewin'):
         cursor.execute("DELETE FROM servewinpercent WHERE 1st LIMIT 1")
         connection.commit()
@@ -50,7 +51,6 @@ def delete():
         connection.commit()
     if form.getfirst('forcederror'):
         cursor.execute("DELETE FROM forcedornot WHERE forced LIMIT 1")
-        connection.commit()                
+        connection.commit()
 delete()
-import servepointcheck
 servepointcheck.py

@@ -2,6 +2,9 @@
 #-*- coding: utf -8  -*-
 print("Content-Type: text/html\n")
 import MySQLdb
+import result
+import pointre_win
+mport point_win
 connection = MySQLdb.connect(
     host='localhost',
     user='root',
@@ -18,17 +21,11 @@ Tieplayer2=cursor.fetchone()['COUNT(`tieplayer2`)']
 point=Tieplayer1+Tieplayer2
 def tiebreak():
     if point % 4 == 0 or point % 4 == 3:
-        import point_win
         point_win.py
     else:
-        import pointre_win
-        pointre_win.py   
+        pointre_win.py
 
-if Tieplayer1>6 or Tieplayer2>6:
-    if abs(Tieplayer1-Tieplayer2)>1:
-        import result
-        result.py
-    else:
-        tiebreak()
+if (Tieplayer1>6 or Tieplayer2>6)&&abs(Tieplayer1-Tieplayer2)>1:
+    result.py
 else:
-    tiebreak()            
+    tiebreak()

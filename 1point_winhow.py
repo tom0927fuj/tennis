@@ -3,6 +3,9 @@
 import MySQLdb
 import cgi
 import pointhyoji
+import servetiebreak
+import returntiebreak
+import servepointcheck
 connection = MySQLdb.connect(
     host='localhost',
     user='root',
@@ -31,7 +34,7 @@ def how():
     <form action='chosei.py' method='POST'>
     <input type='submit' name='調整' value='調整'>
     </form>""")
-    print(string)    
+    print(string)
     pointhyoji.hyoji()
 form = cgi.FieldStorage()
 if form.getfirst('yes'):
@@ -43,13 +46,10 @@ if Winnet==1:
     cursor.execute("""INSERT INTO net(win) VALUES (1)""")
     connection.commit()
     if Tiecheck==1:
-        import servetiebreak
         servetiebreak.py
     elif Tiecheck==2:
-        import returntiebreak
         returntiebreak.py
     else:
-        import servepointcheck
-        servepointcheck.py    
+        servepointcheck.py
 elif Winnet==2:
-    how()    
+    how()

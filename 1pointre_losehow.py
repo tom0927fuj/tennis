@@ -2,6 +2,10 @@
 #-*- coding: utf -8  -*-
 import MySQLdb
 import pointhyoji
+import returnpointcheck
+import servetiebreak
+import returntiebreak
+
 connection = MySQLdb.connect(
     host='localhost',
     user='root',
@@ -30,7 +34,7 @@ def how():
     <form action='choseireturn.py' method='POST'>
     <input type='submit' name='調整' value='調整'>
     </form>""")
-    print(string)    
+    print(string)
     pointhyoji.hyoji()
 import cgi
 form = cgi.FieldStorage()
@@ -42,13 +46,10 @@ if Losenet==1:
     cursor.execute("""INSERT INTO net(lose) VALUES (2)""")
     connection.commit()
     if Tiecheck==0:
-        import returnpointcheck
         returnpointcheck.py
     elif Tiecheck==1:
-        import servetiebreak
         servetiebreak.py
     elif Tiecheck==2:
-        import returntiebreak
         returntiebreak.py
 elif Losenet==2:
     how()

@@ -53,40 +53,32 @@ def losenetplay():
     <form action='choseireturn.py' method='POST'>
     <input type='submit' name='調整' value='調整'>
     </form></body></html>""")
-    print(string)       
+    print(string)
     pointhyoji.hyoji()
 
 if form.getfirst('player1'):
     Win=1
 elif form.getfirst('player2'):
-    Win=2 
+    Win=2
 if Win==1:
     if Tiecheck==0:
         cursor.execute("""INSERT INTO win(player1) VALUES(1)""")
         cursor.execute("""INSERT INTO score(player1) VALUES(1)""")
-        connection.commit()
-        winnetplay()
     elif Tiecheck==1:
         cursor.execute("""INSERT INTO score(tieplayer1) VALUES(1)""")
-        connection.commit()
-        winnetplay()
     else:
         cursor.execute("""INSERT INTO score(tieplayer1) VALUES(1)""")
-        connection.commit()
-        winnetplay()
+    connection.commit()
+    winnetplay()
 elif Win==2:
     if Tiecheck==0:
         cursor.execute("""INSERT INTO win(player2) VALUES(2)""")
         cursor.execute("""INSERT INTO score(player2) VALUES(2)""")
-        connection.commit()
-        losenetplay()
     elif Tiecheck==1:
         cursor.execute("""INSERT INTO score(tieplayer2) VALUES(2)""")
-        connection.commit()
-        losenetplay()
     else:
         cursor.execute("""INSERT INTO score(tieplayer2) VALUES(2)""")
-        connection.commit()
-        losenetplay()
+    connection.commit()
+    losenetplay()
 else:
     print("前に戻ってください")

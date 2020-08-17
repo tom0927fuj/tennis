@@ -3,6 +3,9 @@
 import MySQLdb
 import cgi
 import pointhyoji
+import servetiebreak
+import returntiebreak
+import servepointcheck
 connection = MySQLdb.connect(
     host='localhost',
     user='root',
@@ -32,13 +35,13 @@ def losenetplay():
     </form>""")
     print(string)
     pointhyoji.hyoji()
-    
+
 form = cgi.FieldStorage()
 if form.getfirst('first'):
     Loseserve=1
 elif form.getfirst('second'):
     Loseserve=2
-elif form.getfirst('doublefault'):    
+elif form.getfirst('doublefault'):
     Loseserve=3
 
 if Loseserve==1:
@@ -48,16 +51,13 @@ if Loseserve==1:
 elif Loseserve==2:
     cursor.execute("""INSERT INTO serve(2nd) VALUES (2)""")
     connection.commit()
-    losenetplay()  
+    losenetplay()
 elif Loseserve==3:
-    cursor.execute("""INSERT INTO serve(doublefault) VALUES (3)""") 
+    cursor.execute("""INSERT INTO serve(doublefault) VALUES (3)""")
     connection.commit()
     if Tiecheck==1:
-        import servetiebreak
         servetiebreak.py
     elif Tiecheck==2:
-        import returntiebreak
         returntiebreak.py
     else:
-        import servepointcheck
         servepointcheck.py

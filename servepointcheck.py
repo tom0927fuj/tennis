@@ -2,6 +2,10 @@
 #-*- coding: utf -8  -*-
 print("Content-Type: text/html\n")
 import MySQLdb
+import pointre_win
+import point_win
+import result
+import returntiebreak
 connection = MySQLdb.connect(
     host='localhost',
     user='root',
@@ -27,38 +31,30 @@ def game():
             cursor.execute("DELETE FROM score")
             cursor.execute("INSERT INTO setscore(player1) VALUES (1)")
             connection.commit()
-            import pointre_win
             pointre_win.py
         else:
-            import point_win
-            point_win.py 
+            point_win.py
     elif Player2>3:
         if abs(Player1-Player2)>1:
             cursor.execute("DELETE FROM score")
             cursor.execute("INSERT INTO setscore(player2) VALUES (2)")
             connection.commit()
-            import pointre_win
             pointre_win.py
         else:
-            import point_win
             point_win.py
     else:
-        import point_win
         point_win.py
 if Player1game>5 or Player2game>5:
     if abs(Player1game-Player2game)>2:
-        import result
         result.py
     elif Player1game==6 and Player2game==6:
         cursor.execute("INSERT INTO score(tiecheck) VALUES (1)")
         cursor.execute("INSERT INTO score(tiecheck) VALUES (1)")
         connection.commit()
-        import returntiebreak
         returntiebreak.py
     elif Player1game==7 or Player2game==7:
-        import result
         result.py
     else:
-        game()             
+        game()
 else:
     game()

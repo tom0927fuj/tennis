@@ -31,7 +31,7 @@ def winserve():
     <input type='submit' name='調整' value='調整'>
     </form>""")
     print(string)
-    pointhyoji.hyoji() 
+    pointhyoji.hyoji()
 def loseserve():
     string = ("""
     <!DOCTYPE html>
@@ -51,44 +51,37 @@ def loseserve():
     <form action='chosei.py' method='POST'>
     <input type='submit' name='調整' value='調整'>
     </form>""")
-    print(string) 
+    print(string)
     pointhyoji.hyoji()
-        
+
 
 form = cgi.FieldStorage()
 if form.getfirst('player1'):
     Win=1
 elif form.getfirst('player2'):
-    Win=2    
+    Win=2
 
 if Win==1:
     if Tiecheck==0:
         cursor.execute("""INSERT INTO win(player1) VALUES(1)""")
         cursor.execute("""INSERT INTO score(player1) VALUES(1)""")
-        connection.commit()
-        winserve()
-    elif Tiecheck==1:
-        cursor.execute("""INSERT INTO score(tieplayer1) VALUES(1)""")
-        connection.commit()
-        winserve()
     else:
         cursor.execute("""INSERT INTO score(tieplayer1) VALUES(1)""")
-        connection.commit()
-        winserve()
+    #tiecheck=1のときとelseのとき，同じ実行内容なら，elif Tiecheck==1のとき要らないのでは？
+    #書き方を簡素化．どの分岐であれ，下記を実行するのであれば，ここにもってくる．
+    connection.commit()
+    winserve()
 
 elif Win==2:
     if Tiecheck==0:
         cursor.execute("""INSERT INTO win(player2) VALUES(2)""")
         cursor.execute("""INSERT INTO score(player2) VALUES(2)""")
-        connection.commit()
-        loseserve()
     elif Tiecheck==1:
         cursor.execute("""INSERT INTO score(tieplayer2) VALUES(2)""")
-        connection.commit()
-        loseserve()
     else:
         cursor.execute("""INSERT INTO score(tieplayer2) VALUES(2)""")
-        connection.commit()
-        loseserve()
+    #書き方を簡素化．どの分岐であれ，下記を実行するのであれば，ここにもってくる．
+    connection.commit()
+    loseserve()
 else:
-    print("前に戻ってください")    
+    print("前に戻ってください")
